@@ -13,9 +13,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
@@ -26,7 +24,19 @@
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "config": {
+        "firebase": {
+          "apiKey": "AIzaSyB_gjxWhO4gEPanbkSX236imesTUi5W7Bo",
+          "authDomain": "trans-falcon-287713.firebaseapp.com",
+          "databaseURL": "https://trans-falcon-287713.firebaseio.com",
+          "projectId": "trans-falcon-287713",
+          "storageBucket": "trans-falcon-287713.appspot.com",
+          "messagingSenderId": "177194986194",
+          "appId": "1:177194986194:web:8ec3f462415065a12f1b0b",
+          "measurementId": "G-QNCSEPH3PY"
+        }
+      }
     }
   }
 }
