@@ -1,9 +1,9 @@
-import * as firebase from '@react-native-firebase/app';
-import 'firebase/auth';
-import 'firebase/firestore';
-import 'firebase/storage';
-import 'firebase/firebase-functions';
-import 'firebase/firebase-messaging';
+import firebase from 'firebase';
+import '@firebase/auth';
+import '@firebase/firestore';
+// import 'firebase/storage';
+// import 'firebase/firebase-functions';
+// import 'firebase/firebase-messaging';
 // import $ from 'jquery';
 
 const firebaseConfig = {
@@ -34,7 +34,7 @@ export const itemsForSaleRef = albumsRef.child('/itemsForSale');
 export const wildlifeRef = albumsRef.child('/wildlife');
 export const miscRef = albumsRef.child('/misc');
 
-export const functions = firebase.functions();
+// export const functions = firebase.functions();
 
 ////////// Firestore access //////////
 export const profilesCollection = firebaseApp

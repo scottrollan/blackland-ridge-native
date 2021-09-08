@@ -1,5 +1,3 @@
-import React, { useState, createContext } from 'react';
-import useAuth from './src/hooks/useAuth';
 import { createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from './src/screens/HomeScreen';
@@ -11,19 +9,10 @@ import PetsScreen from './src/screens/PetsScreen';
 import PhotoScreen from './src/screens/PhotoScreen';
 import PayScreen from './src/screens/PayScreen';
 
-// import { Provider } from 'react-redux';
-// import { createStore, applyMiddleware } from 'redux';
-// import rootReducer from './src/redux/reducers';
-// import thunk from 'redux-thunk';
+// import firebase from 'firebase';
 
-import Constants from 'expo-constants';
-import firebase from 'firebase';
-
-// const store = createStore(rootReducer, applyMiddleware(thunk));
-
-if (firebase.apps.length === 0) {
-  firebase.initializeApp(Constants.manifest.web.config.firebase);
-}
+// console.log(firebase.app[0]);
+// firebase.initializeApp();
 // Icons: github.com/expo/vector-icons
 
 const navigator = createStackNavigator(
@@ -45,15 +34,4 @@ const navigator = createStackNavigator(
   }
 );
 
-const AppContainer = createAppContainer(navigator);
-export const UserContext = createContext();
-
-export default AppContainer = () => {
-  // const thisUser = useAuth();
-
-  return (
-    <UserContext.Provider value={thisUser}>
-      <AppContainer />
-    </UserContext.Provider>
-  );
-};
+export default createAppContainer(navigator);
