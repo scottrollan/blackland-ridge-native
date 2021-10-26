@@ -3,7 +3,7 @@ import { View, StyleSheet, Text, FlatList } from 'react-native';
 import ReferralDetail from '../components/ReferralDetail';
 
 const ReferralsList = ({ referrals, errorMessage, selectedValue }) => {
-  const [filteredReferrals, setFilteredReferrals] = useState();
+  const [filteredReferrals, setFilteredReferrals] = useState([]);
   useEffect(() => {
     const filterRefs = (filterOn) => {
       let refs = [];
@@ -21,8 +21,10 @@ const ReferralsList = ({ referrals, errorMessage, selectedValue }) => {
       <Text>Something went wrong.</Text>
     </View>
   ) : (
-    <View>
-      <Text>{selectedValue}</Text>
+    <View style={styles.viewStyles}>
+      {filteredReferrals.length === 0 ? (
+        <Text style={styles.nothing}>Nothing to show...</Text>
+      ) : null}
       <FlatList
         data={filteredReferrals}
         keyExtractor={(referral) => referral.id}
@@ -34,6 +36,15 @@ const ReferralsList = ({ referrals, errorMessage, selectedValue }) => {
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  viewStyles: {
+    flex: 1,
+  },
+  nothing: {
+    textAlign: 'center',
+    paddingTop: 10,
+    color: 'white',
+  },
+});
 
 export default ReferralsList;

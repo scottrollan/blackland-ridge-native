@@ -18,11 +18,22 @@ export default customStyles = {
   overlayDark: 'rgba(65, 88, 33, 0.8)',
   overlayDarkest: 'rgba(0, 0, 0, 0.9)',
   overlayGray: 'rgba(88, 88, 88, 0.4)',
-  horizontalLine: {
+  horizontalLineTop: {
+    alignSelf: 'stretch',
+    borderTopWidth: 1,
+    borderTopColor: '#000',
+  },
+  horizontalLineBottom: {
     alignSelf: 'stretch',
     borderBottomWidth: 1,
     borderBottomColor: '#000',
-    marginTop: 10,
+    paddingBottom: 10,
     marginBottom: 10,
+  },
+  centeredView: {
+    minHeight: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 };

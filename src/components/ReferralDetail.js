@@ -17,7 +17,7 @@ const ReferralDetail = ({ referral }) => {
       <Text style={{ alignSelf: 'flex-end', paddingVertical: 10 }}>
         -&nbsp;{referral.referrer}
       </Text>
-      <View style={customStyles.horizontalLine} />
+      <View style={customStyles.horizontalLineTop} />
       {referral.phone ? (
         <TouchableOpacity
           style={styles.touchable}
