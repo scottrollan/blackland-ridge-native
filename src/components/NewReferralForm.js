@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import {
   View,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Platform,
   Modal,
   Alert,
   TextInput,
@@ -34,7 +38,6 @@ const NewReferralForm = ({
     catObj.subcategories.forEach((sc) => {
       subCats = [...subCats, sc];
     });
-    console.log(`subCats: ${subCats}`);
     setSubCategories([...subCats]);
   };
   // useEffect(() => {
@@ -48,53 +51,56 @@ const NewReferralForm = ({
   // }, []);
 
   return (
-    <View>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={referralModalVisible}
-        onRequestClose={() => {
-          Alert.alert('Modal Closed.');
-          setReferralModalVisible(!referralModalVisible);
-        }}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            {/* MODAL HEADER */}
-            <View
-              style={[styles.modalHeader, customStyles.horizontalLineBottom]}
-            >
-              <Text style={[styles.headerText, styles.text]}>
-                Refer a New Person or Business
-              </Text>
-              <Text style={{ fontStyle: 'italic', textAlign: 'center' }}>
-                Please fill in as much info as possible
-              </Text>
-            </View>
-            {/* MODAL BODY */}
-            <ScrollView style={[styles.modalBody]}>
-              <Text>Business or Person's Name (*required)</Text>
-              <TextInput style={styles.input} />
-              <Text>
-                In 500 characters or fewer, tell us why you would recommend this
-                business. (* required)
-              </Text>
-              <TextInput
-                style={styles.inputMultiLine}
-                multiline
-                numberOfLines={5}
-                maxLength={500}
-              />
-              <View
-                style={{
-                  flexDirection: 'row',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <View style={{}}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={referralModalVisible}
+            onRequestClose={() => {
+              Alert.alert('Modal Closed.');
+              setReferralModalVisible(!referralModalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                {/* MODAL HEADER */}
+                <View
+                  style={[
+                    styles.modalHeader,
+                    customStyles.horizontalLineBottom,
+                  ]}
+                >
+                  <Text style={[styles.headerText, styles.text]}>
+                    Refer a New Person or Business
+                  </Text>
+                  <Text style={{ fontStyle: 'italic', textAlign: 'center' }}>
+                    Please fill in as much info as possible
+                  </Text>
+                </View>
+                {/* MODAL BODY */}
+                <ScrollView style={[styles.modalBody]}>
+                  <Text>Business or Person's Name (*required)</Text>
+                  <TextInput style={styles.input} />
+                  <Text>
+                    In 500 characters or fewer, tell us why you would recommend
+                    this business. (* required)
+                  </Text>
+                  <TextInput
+                    style={styles.inputMultiLine}
+                    multiline
+                    numberOfLines={5}
+                    maxLength={500}
+                  />
+
                   <Text>Select Category (*required)</Text>
                   <Picker
                     selectedValue={selectedCategory}
+                    itemStyle={{ height: 100 }}
                     onValueChange={(itemValue) => selectCategory(itemValue)}
                   >
                     {referralCategories.map((cat) => {
@@ -107,11 +113,11 @@ const NewReferralForm = ({
                       );
                     })}
                   </Picker>
-                </View>
-                <View>
+
                   <Text>Subcategory(ies)</Text>
                   <Picker
                     selectedValue={selectedSubCategory}
+                    itemStyle={{ height: 100 }}
                     onValueChange={(itemValue) =>
                       setSelectedSubCategory(itemValue)
                     }
@@ -120,33 +126,40 @@ const NewReferralForm = ({
                       return <Picker.Item label={sub} value={sub} key={sub} />;
                     })}
                   </Picker>
+                  <Text>Phone</Text>
+                  <TextInput style={styles.input} keyboardType="numeric" />
+                </ScrollView>
+                {/* MODAL FOOTER */}
+                <View
+                  style={[styles.modalFooter, customStyles.horizontalLineTop]}
+                >
+                  <Pressable
+                    style={[styles.buttonStyles, styles.cancel]}
+                    onPress={() => setReferralModalVisible(false)}
+                  >
+                    <Text>Cancel</Text>
+                  </Pressable>
+                  <Pressable
+                    style={[styles.buttonStyles, styles.submit]}
+                    onPress={() => setReferralModalVisible(false)}
+                  >
+                    <Text>Submit</Text>
+                  </Pressable>
                 </View>
               </View>
-            </ScrollView>
-            {/* MODAL FOOTER */}
-            <View style={[styles.modalFooter, customStyles.horizontalLineTop]}>
-              <Pressable
-                style={[styles.buttonStyles, styles.cancel]}
-                onPress={() => setReferralModalVisible(false)}
-              >
-                <Text>Cancel</Text>
-              </Pressable>
-              <Pressable
-                style={[styles.buttonStyles, styles.submit]}
-                onPress={() => setReferralModalVisible(false)}
-              >
-                <Text>Submit</Text>
-              </Pressable>
             </View>
-          </View>
+          </Modal>
         </View>
-      </Modal>
-    </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   centeredView: customStyles.centeredView,
+  container: {
+    flex: 1,
+  },
   modalView: {
     backgroundColor: 'white',
     alignSelf: 'center',
