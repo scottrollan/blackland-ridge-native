@@ -9,7 +9,6 @@ import customStyles from '../data/customStyles';
 
 const BusinessScreen = () => {
   const [selectedValue, setSelectedValue] = useState('All');
-  const [newReferral, setNewReferral] = useState({});
   const [referralModalVisible, setReferralModalVisible] = useState(false);
   const [referrals, errorMessage] = useReferralsResults();
 

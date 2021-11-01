@@ -31,7 +31,7 @@ export default customStyles = {
     marginBottom: 10,
   },
   centeredView: {
-    minHeight: '100%',
+    flex: 1,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
