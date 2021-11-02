@@ -3,13 +3,13 @@ export const formatPhoneNumber = (value) => {
   const phoneNumberLength = phoneNumber.length;
   switch (true) {
     case phoneNumberLength > 6:
-      phoneNumber = `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(
+      phoneNumber = `(${phoneNumber.slice(0, 3)})${phoneNumber.slice(
         3,
         6
       )}-${phoneNumber.slice(6, 10)}`;
       break;
     case phoneNumberLength < 7 && phoneNumberLength > 3:
-      phoneNumber = `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}`;
+      phoneNumber = `(${phoneNumber.slice(0, 3)})${phoneNumber.slice(3, 6)}`;
       break;
     default:
       null;

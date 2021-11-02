@@ -4,7 +4,7 @@ import { referralCategories } from '../data/referralCategories';
 import { FontAwesome } from '@expo/vector-icons';
 
 const NewReferralFormCategories = ({ referralInput, setReferralInput }) => {
-  const [selectedCategory, setSelectedCategory] = useState('General');
+  const [selectedCategory, setSelectedCategory] = useState('^^');
   const [subCategories, setSubCategories] = useState([
     { name: 'General', isSelected: false },
   ]);
@@ -12,12 +12,16 @@ const NewReferralFormCategories = ({ referralInput, setReferralInput }) => {
   const selectCategory = (cat) => {
     setSelectedCategory(cat);
     setReferralInput({ ...referralInput, category: cat });
-    const catObj = referralCategories.find(({ category }) => category === cat);
-    let subCats = [];
-    catObj.subcategories.forEach((sc) => {
-      subCats = [...subCats, { name: sc, isSelected: false }];
-    });
-    setSubCategories([...subCats]);
+    if (cat != '^^') {
+      const catObj = referralCategories.find(
+        ({ category }) => category === cat
+      );
+      let subCats = [];
+      catObj.subcategories.forEach((sc) => {
+        subCats = [...subCats, { name: sc, isSelected: false }];
+      });
+      setSubCategories([...subCats]);
+    }
   };
 
   const handleSubCheck = (i, currentVal) => {
@@ -41,6 +45,11 @@ const NewReferralFormCategories = ({ referralInput, setReferralInput }) => {
         itemStyle={{ height: 100 }}
         onValueChange={(itemValue) => selectCategory(itemValue)}
       >
+        <Picker.Item
+          label="Please select a category..."
+          value="^^"
+          enabled={false}
+        />
         {referralCategories.map((cat) => {
           return (
             <Picker.Item
@@ -51,26 +60,31 @@ const NewReferralFormCategories = ({ referralInput, setReferralInput }) => {
           );
         })}
       </Picker>
+      <View
+        style={
+          selectedCategory === '^^' ? { display: 'none' } : { display: 'flex' }
+        }
+      >
+        <Text>Subcategory(ies)</Text>
 
-      <Text>Subcategory(ies)</Text>
-
-      {subCategories.map((sub, index) => {
-        return (
-          <Pressable
-            key={sub.name}
-            style={styles.checkboxContainer}
-            onPress={() => handleSubCheck(index, sub.isSelected)}
-            // onPressIn={}
-          >
-            {sub.isSelected === true ? (
-              <FontAwesome name="dot-circle-o" size={24} color="green" />
-            ) : (
-              <FontAwesome name="circle-o" size={24} color="black" />
-            )}
-            <Text style={styles.checkboxLabel}>{sub.name}</Text>
-          </Pressable>
-        );
-      })}
+        {subCategories.map((sub, index) => {
+          return (
+            <Pressable
+              key={sub.name}
+              style={styles.checkboxContainer}
+              onPress={() => handleSubCheck(index, sub.isSelected)}
+              // onPressIn={}
+            >
+              {sub.isSelected === true ? (
+                <FontAwesome name="dot-circle-o" size={24} color="green" />
+              ) : (
+                <FontAwesome name="circle-o" size={24} color="black" />
+              )}
+              <Text style={styles.checkboxLabel}>{sub.name}</Text>
+            </Pressable>
+          );
+        })}
+      </View>
     </View>
   );
 };

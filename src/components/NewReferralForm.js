@@ -2,22 +2,31 @@ import React, { useState } from 'react';
 import {
   ActivityIndicator,
   View,
+  Text,
   Modal,
   Alert,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Platform,
+  ScrollView,
   StyleSheet,
   Dimensions,
+  Pressable,
 } from 'react-native';
 import NewReferralFormInputs from './NewReferralFormInputs';
 import customStyles from '../data/customStyles';
-import { formatPhoneNumber } from '../functions/FormatPhoneNumber';
+import NewReferralFormHeader from './NewReferralFormHeader';
+import NewReferralFormSubmitButtons from './NewReferralFormSubmitButtons';
 
 const window = Dimensions.get('window');
-const screen = Dimensions.get('screen');
 
 const NewReferralForm = ({ referralModalVisible, setReferralModalVisible }) => {
   const [activity, setActivity] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessageShow, setErrorMessageShow] = useState(false);
   const emptyReferral = {
-    category: 'General',
+    category: '^^',
     comments: '',
     email: '',
     image: '',
@@ -29,20 +38,30 @@ const NewReferralForm = ({ referralModalVisible, setReferralModalVisible }) => {
   };
   const [referralInput, setReferralInput] = useState({ emptyReferral });
 
-  const handleInput = (val, el) => {
-    if (el === 'phone') {
-      let num = formatPhoneNumber(val);
-      setReferralInput({ ...referralInput, phone: num });
-    } else {
-      setReferralInput({ ...referralInput, [el]: val });
-    }
-  };
-
   const submitNewReferral = () => {
     console.log(JSON.stringify(referralInput));
-    setActivity(true);
-    setReferralInput({ ...emptyReferral });
-    setTimeout(() => setActivity(false), 2000);
+
+    switch (true) {
+      case !referralInput.name || !referralInput.comments:
+        setErrorMessage('Please fill in all *required fields.');
+        setErrorMessageShow(true);
+        break;
+      case referralInput.phone && referralInput.phone.length < 13:
+        setErrorMessage('Please enter a valid phone number.');
+        setErrorMessageShow(true);
+        break;
+      case referralInput.category === '^^':
+        setErrorMessage('Please select a category.');
+        setErrorMessageShow(true);
+        break;
+      default:
+        setActivity(true);
+        setReferralInput({ ...emptyReferral });
+        setTimeout(() => {
+          setActivity(false);
+          setReferralModalVisible(false);
+        }, 2000);
+    }
   };
 
   return (
@@ -73,16 +92,47 @@ const NewReferralForm = ({ referralModalVisible, setReferralModalVisible }) => {
               />
             </View>
             <View
-              style={[!activity ? { display: 'flex' } : { display: 'none' }]}
+              style={[
+                errorMessageShow ? { display: 'flex' } : { display: 'none' },
+                { flex: 1, alignItems: 'center', justifyContent: 'center' },
+              ]}
             >
-              <NewReferralFormInputs
-                handleInput={handleInput}
-                submitNewReferral={submitNewReferral}
-                referralInput={referralInput}
-                setReferralInput={setReferralInput}
-                setReferralModalVisible={setReferralModalVisible}
-              />
+              <Text>{errorMessage}</Text>
+              <Pressable onPress={() => setErrorMessageShow(false)}>
+                <Text style={styles.buttonStyles}>Close</Text>
+              </Pressable>
             </View>
+            <KeyboardAvoidingView
+              behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+              style={styles.container}
+            >
+              <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                <ScrollView style={[styles.modalBody]}>
+                  <View
+                    style={[
+                      !activity && !errorMessageShow
+                        ? { display: 'flex' }
+                        : { display: 'none' },
+                    ]}
+                  >
+                    {/* MODAL HEADER */}
+                    <NewReferralFormHeader />
+                    {/* MODAL BODY */}
+                    <NewReferralFormInputs
+                      submitNewReferral={submitNewReferral}
+                      referralInput={referralInput}
+                      setReferralInput={setReferralInput}
+                      setReferralModalVisible={setReferralModalVisible}
+                    />
+                    {/* MODAL FOOTER */}
+                    <NewReferralFormSubmitButtons
+                      setReferralModalVisible={setReferralModalVisible}
+                      submitNewReferral={submitNewReferral}
+                    />
+                  </View>
+                </ScrollView>
+              </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
           </View>
         </View>
       </Modal>
@@ -107,6 +157,21 @@ const styles = StyleSheet.create({
     margin: 15,
     width: window.width - 30,
     height: window.height - 30,
+  },
+  container: {
+    flex: 1,
+  },
+  modalBody: {
+    paddingBottom: 24,
+    flex: 1,
+  },
+  buttonStyles: {
+    backgroundColor: customStyles.colorPalletteMutedAccent,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+    marginTop: 10,
+    marginHorizontal: 10,
   },
 });
 
