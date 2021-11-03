@@ -34,13 +34,13 @@ const NewReferralForm = ({ referralModalVisible, setReferralModalVisible }) => {
     name: '',
     phone: '',
     rating: [],
+    referrer: '',
     subcategory: [],
   };
   const [referralInput, setReferralInput] = useState({ emptyReferral });
 
   const submitNewReferral = () => {
     console.log(JSON.stringify(referralInput));
-
     switch (true) {
       case !referralInput.name || !referralInput.comments:
         setErrorMessage('Please fill in all *required fields.');
@@ -124,15 +124,15 @@ const NewReferralForm = ({ referralModalVisible, setReferralModalVisible }) => {
                       setReferralInput={setReferralInput}
                       setReferralModalVisible={setReferralModalVisible}
                     />
-                    {/* MODAL FOOTER */}
-                    <NewReferralFormSubmitButtons
-                      setReferralModalVisible={setReferralModalVisible}
-                      submitNewReferral={submitNewReferral}
-                    />
                   </View>
                 </ScrollView>
               </TouchableWithoutFeedback>
             </KeyboardAvoidingView>
+            {/* MODAL FOOTER */}
+            <NewReferralFormSubmitButtons
+              setReferralModalVisible={setReferralModalVisible}
+              submitNewReferral={submitNewReferral}
+            />
           </View>
         </View>
       </Modal>
