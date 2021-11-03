@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet, Picker, Text, Pressable } from 'react-native';
 import ReferralsList from '../components/ReferralsList';
 import NewReferralForm from '../components/NewReferralForm';
@@ -12,6 +12,12 @@ const BusinessScreen = () => {
   const [selectedValue, setSelectedValue] = useState('All');
   const [referralModalVisible, setReferralModalVisible] = useState(false);
   const [referrals, errorMessage] = useReferralsResults();
+  const [
+    referralCategories,
+    categoriesErrorMessage,
+  ] = useReferralCategoriesResults();
+
+  categoriesErrorMessage ? console.log(categoriesErrorMessage) : null;
 
   return (
     <View style={styles.viewStyles}>

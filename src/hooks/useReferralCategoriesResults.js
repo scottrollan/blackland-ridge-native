@@ -3,7 +3,7 @@ import { referralCategoriesCollection } from '../firestore/index';
 
 export default useReferralCategoriesResults = () => {
   const [referralCategories, setReferralCategories] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [categoriesErrorMessage, setErrorMessage] = useState('');
   let referralCategoriesList = [];
   const getReferralCategories = async () => {
     try {
@@ -25,5 +25,5 @@ export default useReferralCategoriesResults = () => {
     getReferralCategories();
   }, []);
 
-  return [referralCategories, errorMessage];
+  return [referralCategories, categoriesErrorMessage];
 };

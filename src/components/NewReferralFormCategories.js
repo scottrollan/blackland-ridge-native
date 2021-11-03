@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, Picker, Pressable, StyleSheet } from 'react-native';
-import { referralCategoriesCollection } from '../firestore/index';
-import { referralCategories } from '../data/referralCategories';
+import useReferralCategoriesResults from '../hooks/useReferralCategoriesResults';
+// import { referralCategories } from '../data/referralCategories';
 import { FontAwesome } from '@expo/vector-icons';
 
 const NewReferralFormCategories = ({ referralInput, setReferralInput }) => {
@@ -9,6 +9,10 @@ const NewReferralFormCategories = ({ referralInput, setReferralInput }) => {
   const [subCategories, setSubCategories] = useState([
     { name: 'General', isSelected: false },
   ]);
+  const [
+    referralCategories,
+    categoriesErrorMessage,
+  ] = useReferralCategoriesResults();
 
   const selectCategory = (cat) => {
     setSelectedCategory(cat);
