@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, Picker, Pressable, StyleSheet } from 'react-native';
+import { referralCategoriesCollection } from '../firestore/index';
 import { referralCategories } from '../data/referralCategories';
 import { FontAwesome } from '@expo/vector-icons';
 

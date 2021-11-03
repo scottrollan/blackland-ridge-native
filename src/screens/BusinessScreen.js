@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Picker, Text, Pressable } from 'react-native';
 import ReferralsList from '../components/ReferralsList';
 import NewReferralForm from '../components/NewReferralForm';
-import { referralCategories } from '../data/referralCategories';
+// import { referralCategories } from '../data/referralCategories';
 import useReferralsResults from '../hooks/useReferralsResults';
+import useReferralCategoriesResults from '../hooks/useReferralCategoriesResults';
 import { FontAwesome } from '@expo/vector-icons';
 import customStyles from '../data/customStyles';
 
