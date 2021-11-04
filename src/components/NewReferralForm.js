@@ -18,6 +18,7 @@ import NewReferralFormInputs from './NewReferralFormInputs';
 import customStyles from '../data/customStyles';
 import NewReferralFormHeader from './NewReferralFormHeader';
 import NewReferralFormSubmitButtons from './NewReferralFormSubmitButtons';
+import addReferral from '../functions/AddReferral';
 
 const window = Dimensions.get('window');
 
@@ -40,7 +41,6 @@ const NewReferralForm = ({ referralModalVisible, setReferralModalVisible }) => {
   const [referralInput, setReferralInput] = useState({ emptyReferral });
 
   const submitNewReferral = () => {
-    console.log(JSON.stringify(referralInput));
     switch (true) {
       case !referralInput.name || !referralInput.comments:
         setErrorMessage('Please fill in all *required fields.');
@@ -55,7 +55,20 @@ const NewReferralForm = ({ referralModalVisible, setReferralModalVisible }) => {
         setErrorMessageShow(true);
         break;
       default:
-        setActivity(true);
+        setActivity(true); //turns on spinner
+        try {
+          console.log(JSON.stringify(referralInput));
+          const referralPostError = addReferral(referralInput);
+          if (referralPostError) {
+            setErrorMessage(referralPostError.message);
+            setErrorMessage(true);
+            return;
+          }
+        } catch (error) {
+          setErrorMessage(error.message);
+          setErrorMessageShow(true);
+          return;
+        }
         setReferralInput({ ...emptyReferral });
         setTimeout(() => {
           setActivity(false);
