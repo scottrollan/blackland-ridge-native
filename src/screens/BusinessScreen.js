@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Picker, Text, Pressable } from 'react-native';
 import ReferralsList from '../components/ReferralsList';
 import NewReferralForm from '../components/NewReferralForm';
@@ -10,6 +10,7 @@ import customStyles from '../data/customStyles';
 const BusinessScreen = () => {
   const [selectedValue, setSelectedValue] = useState('All');
   const [referralModalVisible, setReferralModalVisible] = useState(false);
+
   const [referrals, errorMessage] = useReferralsResults();
   const [
     referralCategories,
@@ -17,6 +18,9 @@ const BusinessScreen = () => {
   ] = useReferralCategoriesResults();
 
   categoriesErrorMessage ? console.log(categoriesErrorMessage) : null;
+
+  // useEffect(() => {
+  // }, []);
 
   return (
     <View style={styles.viewStyles}>
@@ -34,7 +38,8 @@ const BusinessScreen = () => {
           onValueChange={(itemValue) => setSelectedValue(itemValue)}
           style={styles.pickerStyles}
         >
-          <Picker.Item label="All" value="All" />
+          <Picker.Item label="Select Category..." value="" />
+          {/* <Picker.Item label="All" value="All" /> */}
           {referralCategories.map((cat) => {
             return (
               <Picker.Item

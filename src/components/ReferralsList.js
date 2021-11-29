@@ -8,7 +8,7 @@ const ReferralsList = ({ referrals, errorMessage, selectedValue }) => {
     const filterRefs = (filterOn) => {
       let refs = [];
       referrals.forEach((ref) => {
-        if (filterOn === 'All' || filterOn === ref.category) {
+        if (filterOn === ref.category) {
           refs = [...refs, ref];
         }
       });

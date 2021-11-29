@@ -46,7 +46,7 @@ const NewReferralForm = ({ referralModalVisible, setReferralModalVisible }) => {
         setErrorMessage('Please fill in all *required fields.');
         setErrorMessageShow(true);
         break;
-      case referralInput.phone && referralInput.phone.length < 13:
+      case referralInput.phone && referralInput.phone.length != 13: //attempted a phone number input, but number is not the right length
         setErrorMessage('Please enter a valid phone number.');
         setErrorMessageShow(true);
         break;
