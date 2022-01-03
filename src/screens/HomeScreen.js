@@ -13,7 +13,7 @@ const HomeScreen = ({ navigation }) => {
   const buttons = [
     {
       nav: 'Message',
-      buttonText: 'Message Boards',
+      buttonText: 'Message Board',
       icon1: <FontAwesome5 name="comment-alt" size={24} color="black" />,
       icon2: <FontAwesome5 name="comment-alt" size={24} color="black" />,
     },
@@ -54,6 +54,12 @@ const HomeScreen = ({ navigation }) => {
       buttonText: 'Pay Dues',
       icon1: <FontAwesome name="paypal" size={24} color="black" />,
       icon2: <FontAwesome name="paypal" size={24} color="black" />,
+    },
+    {
+      nav: 'Login',
+      buttonText: 'Login/Signup',
+      icon1: <FontAwesome name="user" size={24} color="black" />,
+      icon2: <FontAwesome name="user-plus" size={24} color="black" />,
     },
   ];
 

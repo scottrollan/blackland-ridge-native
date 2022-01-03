@@ -9,6 +9,7 @@ import KidsScreen from './src/screens/KidsScreen';
 import PetsScreen from './src/screens/PetsScreen';
 import PhotoScreen from './src/screens/PhotoScreen';
 import PayScreen from './src/screens/PayScreen';
+import LoginScreen from './src/screens/LoginScreen';
 
 import { useAuth } from './src/hooks/useAuth';
 
@@ -28,6 +29,7 @@ const navigator = createStackNavigator(
     Pets: PetsScreen,
     Photo: PhotoScreen,
     Pay: PayScreen,
+    Login: LoginScreen,
   },
   {
     initialRouteName: 'Home',
