@@ -13,7 +13,7 @@ const HomeScreen = ({ navigation }) => {
   const buttons = [
     {
       nav: 'Message',
-      buttonText: 'Message Board',
+      buttonText: 'Message Boards',
       icon1: <FontAwesome5 name="comment-alt" size={24} color="black" />,
       icon2: <FontAwesome5 name="comment-alt" size={24} color="black" />,
     },
